@@ -1,0 +1,31 @@
+{
+  "name": "cdk-get-stack-output",
+  "version": "1.0.0",
+  "description": "Get output values from CloudFormation and CDK stacks",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node src/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dzhuneyt/cdk-get-stack-output.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Dzhuneyt/cdk-get-stack-output/issues"
+  },
+  "homepage": "https://github.com/Dzhuneyt/cdk-get-stack-output#readme",
+  "dependencies": {
+    "aws-sdk": "^2.624.0",
+    "chalk": "^3.0.0",
+    "ts-node": "^8.6.2",
+    "typescript": "^3.8.2",
+    "yargs": "^15.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^13.7.4",
+    "@types/yargs": "^15.0.3"
+  }
+}

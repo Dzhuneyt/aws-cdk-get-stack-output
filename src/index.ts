@@ -47,7 +47,7 @@ stackManager.getStacks().then((allStacks: AWS.CloudFormation.Stack[]) => {
     stacksToIterate.forEach((iteratedStack: AWS.CloudFormation.Stack) => {
         iteratedStack.Outputs!.forEach((output: AWS.CloudFormation.Output) => {
             if (output.ExportName === args.name || output.OutputKey === args.name) {
-                if (stacksWhereTheOutputWasFound.includes(iteratedStack.StackName)) {
+                if (!stacksWhereTheOutputWasFound.includes(iteratedStack.StackName)) {
                     stacksWhereTheOutputWasFound.push(iteratedStack.StackName);
                 }
                 finalValue = output.OutputValue;

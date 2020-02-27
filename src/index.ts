@@ -3,6 +3,7 @@ import * as yargs from 'yargs';
 import {StackManager} from "./stack-manager";
 import {Arguments} from "./arguments";
 import * as chalk from "chalk";
+import {STS} from "aws-sdk";
 
 process.env.AWS_SDK_LOAD_CONFIG = '1';
 
@@ -31,8 +32,12 @@ const args: Arguments = yargs.parse();
 
 const stackManager = new StackManager();
 
-stackManager.getStacks().then((allStacks: AWS.CloudFormation.Stack[]) => {
-    let stacksWhereTheOutputWasFound:String[] = [];
+const getIdentity = async (): Promise<AWS.STS.Types.GetCallerIdentityResponse> => {
+    return await new STS().getCallerIdentity().promise();
+};
+
+stackManager.getStacks().then(async (allStacks: AWS.CloudFormation.Stack[]) => {
+    let stacksWhereTheOutputWasFound: String[] = [];
     let finalValue = null;
     let stacksToIterate: AWS.CloudFormation.Stack[] = [];
 
@@ -44,6 +49,13 @@ stackManager.getStacks().then((allStacks: AWS.CloudFormation.Stack[]) => {
         stacksToIterate = allStacks;
     }
 
+    if (!stacksToIterate.length) {
+        const identity = await getIdentity();
+        console.log(chalk.red(
+            `No CloudFormation stacks found in account ${identity.Account} and region ${AWS.config.region}.`
+        ));
+        process.exit(1);
+    }
     stacksToIterate.forEach((iteratedStack: AWS.CloudFormation.Stack) => {
         iteratedStack.Outputs!.forEach((output: AWS.CloudFormation.Output) => {
             if (output.ExportName === args.name || output.OutputKey === args.name) {

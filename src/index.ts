@@ -32,20 +32,20 @@ const args: Arguments = yargs.parse();
 const stackManager = new StackManager();
 
 stackManager.getStacks().then((allStacks: AWS.CloudFormation.Stack[]) => {
-    let stacksWhereTheOutputWasFound = [];
+    let stacksWhereTheOutputWasFound:String[] = [];
     let finalValue = null;
     let stacksToIterate: AWS.CloudFormation.Stack[] = [];
 
     if (args.fromStack) {
         stacksToIterate = allStacks.filter((stack: AWS.CloudFormation.Stack) => {
-            return stack.StackName.includes(args.fromStack);
+            return stack.StackName.includes(args.fromStack!);
         });
     } else {
         stacksToIterate = allStacks;
     }
 
     stacksToIterate.forEach((iteratedStack: AWS.CloudFormation.Stack) => {
-        iteratedStack.Outputs.forEach((output: AWS.CloudFormation.Output) => {
+        iteratedStack.Outputs!.forEach((output: AWS.CloudFormation.Output) => {
             if (output.ExportName === args.name || output.OutputKey === args.name) {
                 if (!stacksWhereTheOutputWasFound.includes(iteratedStack.StackName)) {
                     stacksWhereTheOutputWasFound.push(iteratedStack.StackName);

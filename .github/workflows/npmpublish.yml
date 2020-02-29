@@ -26,23 +26,22 @@ jobs:
           node-version: 12
           registry-url: https://registry.npmjs.org/
       - run: npm i --no-audit
-      - run: npm version patch
-      - run: npm publish
+      - run: npm run create:version -- --no-release-draft --preview
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
-
-  publish-gpr:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 12
-          registry-url: https://npm.pkg.github.com/
-          scope: '@Dzhuneyt'
-      - run: npm i --no-audit
-      - run: npm version patch
-      - run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+#
+#  publish-gpr:
+#    needs: build
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v2
+#      - uses: actions/setup-node@v1
+#        with:
+#          node-version: 12
+#          registry-url: https://npm.pkg.github.com/
+#          scope: '@Dzhuneyt'
+#      - run: npm i --no-audit
+#      - run: npm run create:version -- no-release-draft
+#      - run: npm publish
+#        env:
+#          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}

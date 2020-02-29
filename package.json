@@ -23,6 +23,7 @@
   "dependencies": {
     "aws-sdk": "^2.624.0",
     "chalk": "^3.0.0",
+    "np": "^6.2.0",
     "ts-node": "^8.6.2",
     "typescript": "^3.8.2",
     "yargs": "^15.1.0"

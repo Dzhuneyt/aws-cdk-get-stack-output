@@ -26,6 +26,7 @@ jobs:
           node-version: 12
           registry-url: https://registry.npmjs.org/
       - run: npm ci
+      - run: git config --local user.email "action@github.com" && git config --local user.name "GitHub Action"
       - run: npm run create:version -- patch --no-release-draft
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}

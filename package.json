@@ -4,10 +4,11 @@
   "description": "Get output values from CloudFormation and CDK stacks",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node src/index.ts"
+    "start": "ts-node src/index.ts",
+    "create:version": "np"
   },
   "bin": {
-    "cdk-output": "cdk-output"
+    "aws-cdk-output": "cdk-output"
   },
   "repository": {
     "type": "git",

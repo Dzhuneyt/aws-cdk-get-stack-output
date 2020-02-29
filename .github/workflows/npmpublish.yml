@@ -26,7 +26,7 @@ jobs:
           node-version: 12
           registry-url: https://registry.npmjs.org/
       - run: npm i --no-audit
-      - run: npm run create:version -- --no-release-draft --preview
+      - run: npm run create:version -- patch --no-release-draft --preview
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
 #

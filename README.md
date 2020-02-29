@@ -3,7 +3,7 @@ The alternative to "cdk output" we've been waiting for...
 
 ### Usage
 
-    ./cdk-output --name=frontendurl --fromStack=my-cdk-stack
+    npx aws-cdk-output --name=frontendurl --fromStack=my-cdk-stack
     
 ### Contributors
 

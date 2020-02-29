@@ -1,6 +1,6 @@
 {
   "name": "aws-cdk-output",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Get output values from CloudFormation and CDK stacks",
   "main": "index.js",
   "scripts": {

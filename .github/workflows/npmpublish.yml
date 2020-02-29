@@ -2,8 +2,9 @@ name: npm
 
 on:
   push:
-    branches: 
+    branches:
       - master
+
 
 jobs:
   build:

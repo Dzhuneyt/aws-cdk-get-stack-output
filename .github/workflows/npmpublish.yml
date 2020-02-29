@@ -13,7 +13,7 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 12
-      - run: npm i --no-audit
+      - run: npm ci
       - run: npm test
 
   publish-npm:
@@ -25,7 +25,7 @@ jobs:
         with:
           node-version: 12
           registry-url: https://registry.npmjs.org/
-      - run: npm i --no-audit
+      - run: npm ci
       - run: npm run create:version -- patch --no-release-draft --preview
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
@@ -40,7 +40,7 @@ jobs:
 #          node-version: 12
 #          registry-url: https://npm.pkg.github.com/
 #          scope: '@Dzhuneyt'
-#      - run: npm i --no-audit
+#      - run: npm ci
 #      - run: npm run create:version -- no-release-draft
 #      - run: npm publish
 #        env:

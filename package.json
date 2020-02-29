@@ -1,10 +1,13 @@
 {
-  "name": "cdk-get-stack-output",
+  "name": "aws-cdk-output",
   "version": "1.0.0",
   "description": "Get output values from CloudFormation and CDK stacks",
   "main": "index.js",
   "scripts": {
     "start": "ts-node src/index.ts"
+  },
+  "bin": {
+    "cdk-output": "cdk-output"
   },
   "repository": {
     "type": "git",

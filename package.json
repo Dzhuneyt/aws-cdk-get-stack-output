@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "ts-node src/index.ts",
+    "test": "exit 0",
     "create:version": "np"
   },
   "bin": {

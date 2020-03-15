@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "npx tsc && npx webpack",
-    "start": "ts-node src/index.ts",
+    "start": "ts-node --prefer-ts-exts src/index.ts",
     "test": "exit 0",
     "create:version": "npm run build && np"
   },

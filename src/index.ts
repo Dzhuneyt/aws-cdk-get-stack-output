@@ -30,6 +30,9 @@ yargs.option({
 });
 const args: Arguments = yargs.parse();
 
+const filterByStackPartialName = args.fromStack;
+const outputNameToSearch = args.name as string;
+
 const stackManager = new StackManager();
 
 const getIdentity = async (): Promise<AWS.STS.Types.GetCallerIdentityResponse> => {
@@ -41,21 +44,23 @@ stackManager.getStacks().then(async (allStacks: AWS.CloudFormation.Stack[]) => {
     let finalValue = null;
     let stacksToIterate: AWS.CloudFormation.Stack[] = [];
 
-    if (args.fromStack) {
-        stacksToIterate = allStacks.filter((stack: AWS.CloudFormation.Stack) => {
-            return stack.StackName.includes(args.fromStack!);
-        });
-    } else {
-        stacksToIterate = allStacks;
-    }
+    stacksToIterate = allStacks.filter((stack: AWS.CloudFormation.Stack) => {
+        return !filterByStackPartialName || stack.StackName.includes(args.fromStack!);
+    });
 
     if (!stacksToIterate.length) {
         const identity = await getIdentity();
         console.log(chalk.red(
-            `No CloudFormation stacks found in account ${identity.Account} and region ${AWS.config.region}.`
+            `No CloudFormation stacks match the filter.
+            Please check if you have provided the correct account, region and credentials.`
         ));
+        console.log(
+            identity.Account,
+            AWS.config.region
+        );
         process.exit(1);
     }
+
     stacksToIterate.forEach((iteratedStack: AWS.CloudFormation.Stack) => {
         iteratedStack.Outputs!.forEach((output: AWS.CloudFormation.Output) => {
             if (output.ExportName === args.name || output.OutputKey === args.name) {
@@ -67,6 +72,16 @@ stackManager.getStacks().then(async (allStacks: AWS.CloudFormation.Stack[]) => {
         });
     });
 
+    if (finalValue === null) {
+        // Attempt a partial search as well
+        stacksToIterate.forEach((iteratedStack: AWS.CloudFormation.Stack) => {
+            iteratedStack.Outputs!.forEach((output: AWS.CloudFormation.Output) => {
+                if (output.OutputKey?.includes(outputNameToSearch) || output.ExportName?.includes(outputNameToSearch)) {
+                    finalValue = output.OutputValue;
+                }
+            });
+        });
+    }
 
     if (stacksWhereTheOutputWasFound.length > 1) {
         const stackNamesConcat = stacksWhereTheOutputWasFound.join(', ');

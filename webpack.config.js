@@ -4,7 +4,7 @@ const nodeExternals = require('webpack-node-externals');
 module.exports = {
     target: 'node',
     mode: 'development',
-    entry: './bin/aws-cdk-output.ts',
+    entry: './src/index.ts',
     resolve: {
         // Add `.ts` and `.tsx` as a resolvable extension.
         extensions: [".ts", ".tsx", ".js"]

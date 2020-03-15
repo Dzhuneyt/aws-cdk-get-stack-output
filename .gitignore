@@ -4,3 +4,4 @@ node_modules
 bin/*.js
 src/*.js
 dist
+!bin/aws-cdk-output.js

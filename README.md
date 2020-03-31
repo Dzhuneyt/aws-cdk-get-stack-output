@@ -1,6 +1,12 @@
 # AWS CDK stacks output
 The alternative to "cdk output" we've been waiting for...
 
+### Pre-requisite
+Export the following standard AWS config variables to the execution environment 
+
+    AWS_PROFILE
+    AWS_REGION
+    
 ### Usage
 
     npx aws-cdk-output --name=frontendurl --fromStack=my-cdk-stack

@@ -1,6 +1,9 @@
 # AWS CDK stacks output
 The alternative to "cdk output" we've been waiting for...
 
+## Deprecated
+> Note: This library was useful at the time of creation, but now AWS CDK supports emiting stack outputs to a .json file natively via `cdk deploy --outputs-file my-outputs.json`. The repository is left here for historical reasons.
+
 ### Pre-requisite
 Export the following standard AWS config variables to the execution environment 
 
